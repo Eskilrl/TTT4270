@@ -21,7 +21,7 @@ set(IMGUI_SRC
 
 include_directories(${IMGUI_DIR} ${IMGUI_DIR}/backends include)
 
-add_executable(MyImGuiProject src/main.cpp src/gui.cpp ${IMGUI_SRC})
+add_executable(TTT4270_SPS src/main.cpp src/gui.cpp ${IMGUI_SRC})
 
 # Link libraries
-target_link_libraries(MyImGuiProject glfw GL dl)
+target_link_libraries(TTT4270_SPS glfw GL dl)

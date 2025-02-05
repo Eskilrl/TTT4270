@@ -63,7 +63,7 @@ CMAKE_BINARY_DIR = /home/eskilrl/Documents/NTNU/TTT4270/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/MyImGuiProject.dir/all
+all: CMakeFiles/TTT4270_SPS.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -71,34 +71,34 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/MyImGuiProject.dir/clean
+clean: CMakeFiles/TTT4270_SPS.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/MyImGuiProject.dir
+# Target rules for target CMakeFiles/TTT4270_SPS.dir
 
 # All Build rule for target.
-CMakeFiles/MyImGuiProject.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyImGuiProject.dir/build.make CMakeFiles/MyImGuiProject.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyImGuiProject.dir/build.make CMakeFiles/MyImGuiProject.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/eskilrl/Documents/NTNU/TTT4270/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10 "Built target MyImGuiProject"
-.PHONY : CMakeFiles/MyImGuiProject.dir/all
+CMakeFiles/TTT4270_SPS.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TTT4270_SPS.dir/build.make CMakeFiles/TTT4270_SPS.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TTT4270_SPS.dir/build.make CMakeFiles/TTT4270_SPS.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/eskilrl/Documents/NTNU/TTT4270/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10 "Built target TTT4270_SPS"
+.PHONY : CMakeFiles/TTT4270_SPS.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/MyImGuiProject.dir/rule: cmake_check_build_system
+CMakeFiles/TTT4270_SPS.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/eskilrl/Documents/NTNU/TTT4270/build/CMakeFiles 10
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/MyImGuiProject.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/TTT4270_SPS.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/eskilrl/Documents/NTNU/TTT4270/build/CMakeFiles 0
-.PHONY : CMakeFiles/MyImGuiProject.dir/rule
+.PHONY : CMakeFiles/TTT4270_SPS.dir/rule
 
 # Convenience name for target.
-MyImGuiProject: CMakeFiles/MyImGuiProject.dir/rule
-.PHONY : MyImGuiProject
+TTT4270_SPS: CMakeFiles/TTT4270_SPS.dir/rule
+.PHONY : TTT4270_SPS
 
 # clean rule for target.
-CMakeFiles/MyImGuiProject.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyImGuiProject.dir/build.make CMakeFiles/MyImGuiProject.dir/clean
-.PHONY : CMakeFiles/MyImGuiProject.dir/clean
+CMakeFiles/TTT4270_SPS.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TTT4270_SPS.dir/build.make CMakeFiles/TTT4270_SPS.dir/clean
+.PHONY : CMakeFiles/TTT4270_SPS.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

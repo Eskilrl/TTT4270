@@ -8,6 +8,10 @@
 
 
 class SPS{
+    SPS();
+    bool InitUART();
+    
+
   
 
 };
