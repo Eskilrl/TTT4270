@@ -1,0 +1,47 @@
+[
+{
+  "directory": "/home/eskilrl/Documents/NTNU/TTT4270/build",
+  "command": "/usr/bin/g++ -I/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui -I/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/backends -I/home/eskilrl/Documents/NTNU/TTT4270/include -g -o CMakeFiles/MyImGuiProject.dir/src/main.cpp.o -c /home/eskilrl/Documents/NTNU/TTT4270/src/main.cpp",
+  "file": "/home/eskilrl/Documents/NTNU/TTT4270/src/main.cpp"
+},
+{
+  "directory": "/home/eskilrl/Documents/NTNU/TTT4270/build",
+  "command": "/usr/bin/g++ -I/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui -I/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/backends -I/home/eskilrl/Documents/NTNU/TTT4270/include -g -o CMakeFiles/MyImGuiProject.dir/src/gui.cpp.o -c /home/eskilrl/Documents/NTNU/TTT4270/src/gui.cpp",
+  "file": "/home/eskilrl/Documents/NTNU/TTT4270/src/gui.cpp"
+},
+{
+  "directory": "/home/eskilrl/Documents/NTNU/TTT4270/build",
+  "command": "/usr/bin/g++ -I/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui -I/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/backends -I/home/eskilrl/Documents/NTNU/TTT4270/include -g -o CMakeFiles/MyImGuiProject.dir/libs/imgui/imgui.cpp.o -c /home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/imgui.cpp",
+  "file": "/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/imgui.cpp"
+},
+{
+  "directory": "/home/eskilrl/Documents/NTNU/TTT4270/build",
+  "command": "/usr/bin/g++ -I/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui -I/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/backends -I/home/eskilrl/Documents/NTNU/TTT4270/include -g -o CMakeFiles/MyImGuiProject.dir/libs/imgui/imgui_draw.cpp.o -c /home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/imgui_draw.cpp",
+  "file": "/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/imgui_draw.cpp"
+},
+{
+  "directory": "/home/eskilrl/Documents/NTNU/TTT4270/build",
+  "command": "/usr/bin/g++ -I/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui -I/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/backends -I/home/eskilrl/Documents/NTNU/TTT4270/include -g -o CMakeFiles/MyImGuiProject.dir/libs/imgui/imgui_demo.cpp.o -c /home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/imgui_demo.cpp",
+  "file": "/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/imgui_demo.cpp"
+},
+{
+  "directory": "/home/eskilrl/Documents/NTNU/TTT4270/build",
+  "command": "/usr/bin/g++ -I/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui -I/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/backends -I/home/eskilrl/Documents/NTNU/TTT4270/include -g -o CMakeFiles/MyImGuiProject.dir/libs/imgui/imgui_tables.cpp.o -c /home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/imgui_tables.cpp",
+  "file": "/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/imgui_tables.cpp"
+},
+{
+  "directory": "/home/eskilrl/Documents/NTNU/TTT4270/build",
+  "command": "/usr/bin/g++ -I/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui -I/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/backends -I/home/eskilrl/Documents/NTNU/TTT4270/include -g -o CMakeFiles/MyImGuiProject.dir/libs/imgui/imgui_widgets.cpp.o -c /home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/imgui_widgets.cpp",
+  "file": "/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/imgui_widgets.cpp"
+},
+{
+  "directory": "/home/eskilrl/Documents/NTNU/TTT4270/build",
+  "command": "/usr/bin/g++ -I/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui -I/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/backends -I/home/eskilrl/Documents/NTNU/TTT4270/include -g -o CMakeFiles/MyImGuiProject.dir/libs/imgui/backends/imgui_impl_glfw.cpp.o -c /home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/backends/imgui_impl_glfw.cpp",
+  "file": "/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/backends/imgui_impl_glfw.cpp"
+},
+{
+  "directory": "/home/eskilrl/Documents/NTNU/TTT4270/build",
+  "command": "/usr/bin/g++ -I/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui -I/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/backends -I/home/eskilrl/Documents/NTNU/TTT4270/include -g -o CMakeFiles/MyImGuiProject.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.o -c /home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/backends/imgui_impl_opengl3.cpp",
+  "file": "/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/backends/imgui_impl_opengl3.cpp"
+}
+]

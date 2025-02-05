@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "iostream": "cpp"
+    },
+    "C_Cpp.default.includePath": [
+        "/usr/include/SFML",
+        "${workspaceFolder}/include",
+        "${workspaceFolder}/imgui",
+        "${workspaceFolder}/imgui-sfml"
+    ],
+    "C_Cpp.default.intelliSenseMode": "gcc-x64",
+    "C_Cpp.default.compilerPath": "/usr/bin/g++",
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json"
+}
