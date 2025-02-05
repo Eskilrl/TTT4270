@@ -1,11 +1,34 @@
 #include <stdio.h>
 
 #include <iostream>
-using namespace std;
+#include "SPS.h"
+#include "gui.h"
 
-int main(){
+
+
+int main() {
+    if (!glfwInit()) return -1;
+
+    GLFWwindow* window = glfwCreateWindow(1500, 1200, "Sonar Positioning System", NULL, NULL);
+    if (!window) {
+        glfwTerminate();
+        return -1;
+    }
     
-    cout << "Hello from make compile" << endl;
+    glfwMakeContextCurrent(window);
+    InitImGui(window);
 
+    while (!glfwWindowShouldClose(window)) {
+        glfwPollEvents();
+
+        glClear(GL_COLOR_BUFFER_BIT);
+        RenderUI();
+
+        glfwSwapBuffers(window);
+    }
+
+    CleanupImGui();
+    glfwDestroyWindow(window);
+    glfwTerminate();
     return 0;
 }
