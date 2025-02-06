@@ -4,12 +4,12 @@
 #include "SPS.h"
 #include "gui.h"
 
-
+GuiContainer GuiC;
 
 int main() {
     if (!glfwInit()) return -1;
 
-    GLFWwindow* window = glfwCreateWindow(1500, 1200, "Sonar Positioning System", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(GuiC.getWidth()*37, GuiC.getHeight()*22, "Sonar Positioning System", NULL, NULL);
     if (!window) {
         glfwTerminate();
         return -1;
@@ -22,7 +22,7 @@ int main() {
         glfwPollEvents();
 
         glClear(GL_COLOR_BUFFER_BIT);
-        RenderUI();
+        RenderUI(GuiC);
 
         glfwSwapBuffers(window);
     }
