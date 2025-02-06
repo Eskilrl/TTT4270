@@ -1,19 +1,49 @@
 #include "gui.h"
 
 
-//Define variables
+//Define variables - - - - - - - - - - - - - - - - 
 
 float my_color[4] = {0.45f, 0.55f, 0.60f, 1.00f};
 bool my_tool_active = true;
 
 
-//Define functions
+// GuiContainer class functions - - - - - - - - - - - - - - - - 
+
+int GuiContainer::getHeight(){
+    return InnerWindowHeightUnit;
+}
+
+int GuiContainer::getWidth(){
+    return InnerWindowWidthUnit;
+}
+
+std::vector<double> GuiContainer::getPos(){
+    return EstimatedPos;
+}
+
+float GuiContainer::getBaroDepth(){
+    return BarometerDepth;
+}
+
+float GuiContainer::getTemperature(){
+    return Temperature;
+}
+
+bool GuiContainer::getNewData(SPS &data){
+    
+
+}
+
+
+
+//Define functions - - - - - - - - - - - - - - - - 
 
 
 void InitImGui(GLFWwindow* window) {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
+    io.FontGlobalScale = 2.5f;  // Scale all fonts and UI by 1.5x
     (void)io;
 
     ImGui::StyleColorsDark();
@@ -28,16 +58,21 @@ void CleanupImGui() {
     ImGui::DestroyContext();
 }
 
-void RenderUI() {
+void RenderUI(GuiContainer &GuiC) {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    ImGui::Begin("Hello, ImGui!");
-    ImGui::Text("Welcome to ImGui in C++!");
     //draw_list->AddTriangleFilled(ImVec2(50, 100), ImVec2(100, 50), ImVec2(150, 100), ImColor(255, 0, 0));
-    ImGui::End();
-    CreateExampleUI();
+    //CreateExampleUI();
+    //Call sub window modules
+    CreateTrueDepthUI(GuiC);
+    CreatePosition2D(GuiC);
+    CreateErrors(GuiC);
+    CreateControllParameters(GuiC);
+    CreateGeneralMetrics(GuiC);
+
+    //Render
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
@@ -75,7 +110,121 @@ void CreateExampleUI(){
     ImGui::End();
 }
 
-void CreateDepthUI() {
+
+void CreateTrueDepthUI(GuiContainer &GC){
+    
+    ImGui::SetNextWindowPos(ImVec2(GC.getWidth() *17, GC.getHeight()*1)); 
+    ImGui::SetNextWindowSize(ImVec2(GC.getWidth()*6, GC.getHeight()*20));
+    ImGui::Begin("Baro Depth[M]");
+    ImDrawList* draw_list = ImGui::GetWindowDrawList();
+
+    // Define start and end points
+    ImVec2 p1 = ImVec2(GC.getWidth()*20, GC.getHeight()*2);
+    ImVec2 p2 = ImVec2(GC.getWidth()*20, GC.getHeight()*19);
+    ImVec2 p3 = ImVec2(GC.getWidth()*18, GC.getHeight()*2);
+    ImVec2 p4 = ImVec2(GC.getWidth()*22, GC.getHeight()*2);
+    // Define color and thickness
+    ImU32 color = IM_COL32(255, 255, 255, 255); // White color
+    float thickness = 3.0f;
+
+    // Draw the line
+    draw_list->AddLine(p1, p2, color, thickness);
+
+    color = IM_COL32(255, 255, 255, 255); // White color
+
+    // Draw the line
+    draw_list->AddLine(p3, p4, color, thickness);
+
+    color = IM_COL32(255, 0, 0, 255); // Red color
+
+    ImVec2 circleCenter = ImVec2(GC.getWidth()*20, GC.getBaroDepth());
+    float circleRaduis = GC.getHeight()/4;
+    draw_list->AddCircle(circleCenter,circleRaduis,color,30,3.0f);
+
+    ImVec2 TextPoint = ImVec2(circleCenter.x+20,circleCenter.y);
+    ImGui::SetCursorPos(TextPoint);
+    ImGui::Text("Z: %d", (int) GC.getBaroDepth());
+
+    ImGui::End();
+}
+
+void CreatePosition2D(GuiContainer &GC){
+    ImGui::SetNextWindowPos(ImVec2(GC.getWidth()*1, GC.getHeight()*1)); 
+    ImGui::SetNextWindowSize(ImVec2(GC.getWidth()*15, GC.getHeight()*20));
+    ImGui::Begin("Position in 2D");
+
+    ImDrawList* draw_list = ImGui::GetWindowDrawList();
+    
+    float width = GC.getWidth()*13;
+    float height = GC.getHeight()*23;
+    ImU32 color = IM_COL32(100, 100, 255, 255); // Blueish net
+    float thickness = 3.0f;
+
+    //Net position vectors
+    ImVec2 top_left = ImVec2(GC.getWidth()*2, GC.getHeight()*2);
+    ImVec2 top_right = ImVec2(top_left.x + width, top_left.y);
+    ImVec2 top_control = ImVec2((top_left.x + top_right.x) / 2, top_left.y + height);
+    
+    //Draw the net
+    draw_list->AddBezierCubic(top_left, top_control, top_control, top_right, color, thickness);
+    draw_list->AddLine(top_left, top_right, color, thickness);
+  
+    //Draw drone
+    color = IM_COL32(255, 0, 0, 255); // Red color
+    ImVec2 DronePos = ImVec2(GC.getPos().at(0), GC.getPos().at(2));
+    float circleRaduis = GC.getHeight()/4;
+    draw_list->AddCircle(DronePos,circleRaduis,color,30,3.0f);
+    ImVec2 TextPoint = ImVec2(DronePos.x,DronePos.y/6);
+    ImGui::SetCursorPos(TextPoint);
+    ImGui::Text("Debth: %d", (int) DronePos.y);
+
+    //Draw lines to drone vector
+    color = IM_COL32(255, 100, 0, 255); // Red color
+    draw_list->AddLine(top_right, DronePos, color, thickness);
+    draw_list->AddLine(top_left, DronePos, color, thickness);
+
+    color = IM_COL32(255, 255, 255, 255); // White color
+    draw_list->AddLine(ImVec2(DronePos.x, top_left.y), DronePos, color, thickness);
+    ImGui::End();
 
 }
 
+void CreateErrors(GuiContainer &GC){
+    ImGui::SetNextWindowPos(ImVec2(GC.getWidth()*24, GC.getHeight()*1)); 
+    ImGui::SetNextWindowSize(ImVec2(GC.getWidth()*12, GC.getHeight()*5));
+    ImGui::Begin("Errors");
+    ImGui::Text("Sonar to barometer deviation: %d", 0);
+
+
+
+    ImGui::End();
+
+}
+
+void CreateControllParameters(GuiContainer &GC){
+    ImGui::SetNextWindowPos(ImVec2(GC.getWidth()*24, GC.getHeight()*7)); 
+    ImGui::SetNextWindowSize(ImVec2(GC.getWidth()*12, GC.getHeight()*6));
+    ImGui::Begin("Controll parameters");
+
+    ImGui::SliderFloat("Sonar/IMU bias %d", &GC.f, 0.0f, 1.0f);
+    ImGui::Button("Set default bias", ImVec2(GC.getWidth()*5,GC.getHeight()));
+    //ImGui::InputText("Set diameter [m]: ", GC.DiameterBuf, IM_ARRAYSIZE(GC.DiameterBuf));
+
+
+    ImGui::End();
+
+}
+
+void CreateGeneralMetrics(GuiContainer &GC){
+    ImGui::SetNextWindowPos(ImVec2(GC.getWidth()*24, GC.getHeight()*14)); 
+    ImGui::SetNextWindowSize(ImVec2(GC.getWidth()*12, GC.getHeight()*7));
+    ImGui::Begin("General metrics");
+    std::string fabc(GC.getTemperature(), 2);
+    const char* tempchar = fabc.c_str();
+    ImGui::Text("temperature: ", tempchar);
+
+
+
+    ImGui::End();
+
+}
