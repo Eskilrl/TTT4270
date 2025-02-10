@@ -5,6 +5,14 @@
 
 float my_color[4] = {0.45f, 0.55f, 0.60f, 1.00f};
 bool my_tool_active = true;
+double lastTime = glfwGetTime();
+int updateCount = 0;
+double ups = 0;
+
+
+
+static float OceantempHistory[100] = {0};  // Store the last 100 values
+static int OceantempIndex = 0;
 
 
 // GuiContainer class functions - - - - - - - - - - - - - - - - 
@@ -29,11 +37,13 @@ float GuiContainer::getTemperature(){
     return Temperature;
 }
 
+/*
 bool GuiContainer::getNewData(SPS &data){
-    
-
+    std::vector<double> EstimatedPos(3);
+    data.getPosition(EstimatedPos);
+    return true;
 }
-
+*/
 
 
 //Define functions - - - - - - - - - - - - - - - - 
@@ -43,7 +53,7 @@ void InitImGui(GLFWwindow* window) {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
-    io.FontGlobalScale = 2.5f;  // Scale all fonts and UI by 1.5x
+    io.FontGlobalScale = 3.0f;  // Scale all fonts and UI by 1.5x
     (void)io;
 
     ImGui::StyleColorsDark();
@@ -219,12 +229,39 @@ void CreateGeneralMetrics(GuiContainer &GC){
     ImGui::SetNextWindowPos(ImVec2(GC.getWidth()*24, GC.getHeight()*14)); 
     ImGui::SetNextWindowSize(ImVec2(GC.getWidth()*12, GC.getHeight()*7));
     ImGui::Begin("General metrics");
-    std::string fabc(GC.getTemperature(), 2);
-    const char* tempchar = fabc.c_str();
-    ImGui::Text("temperature: ", tempchar);
+    ImGui::Text("Water temperature: %d", (int) GC.getTemperature());
+    char buffer[64];
+    sprintf(buffer, "FPS: %.1f | UPS: %.1f", ImGui::GetIO().Framerate, ups);
+    ImGui::Text("%s", buffer);
 
+    UPSHistory[UPSIndex] = ups;
+    UPSIndex = (UPSIndex + 1) % 100;
+
+    ImGui::PlotLines("UPS history", UPSHistory, 100, 0, nullptr, 20.0f, 60.0f, ImVec2(0, GC.getHeight()/2));
+
+
+    float cpuTemp = GetCPUTemperature();
+    ImGui::Text("CPU Temp: %.1f °C", cpuTemp);
+    // Update temperature history
+    CPUtempHistory[CPUtempIndex] = cpuTemp;
+    CPUtempIndex = (CPUtempIndex + 1) % 100;
+
+    ImGui::PlotLines("CPU Temp history", CPUtempHistory, 100, 0, nullptr, 20.0f, 60.0f, ImVec2(0, GC.getHeight()/2));
 
 
     ImGui::End();
 
+}
+
+
+//System information functions - - - - - - - - - - - - - - - -
+
+float GetCPUTemperature() {
+    std::ifstream file("/sys/class/thermal/thermal_zone0/temp");
+    float temp;
+    if (file) {
+        file >> temp;
+        temp /= 1000.0f; // Convert millidegrees to Celsius
+    }
+    return temp;
 }
