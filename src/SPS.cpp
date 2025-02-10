@@ -7,8 +7,10 @@ This is the cpp file for estimating the position of the bioscope
 
 //Retrieve private data functions
 
-std::vector<float> SPS::getPosition(){
-    return xyzPosition;
+void SPS::getPosition(std::vector<double> &pos_vector){
+    pos_vector.at(0) = xyzPosition.at(0);
+    pos_vector.at(1) = xyzPosition.at(1);
+    pos_vector.at(2) = xyzPosition.at(2);
 }
 
 float SPS::getBaroDepth(){

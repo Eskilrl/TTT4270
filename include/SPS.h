@@ -13,15 +13,18 @@
 
 class SPS{
 private:
+    double perimeterX;
+    double perimeterY;
 
-std::vector<float> xyzPosition = {0,0,0};
+
+std::vector<double> xyzPosition = {0,0,0};
 float baroDepth = 0;
 float temperature = 0;
 public:
-    SPS();
+    //SPS();
 
     //Retrive private data functions
-    std::vector<float> getPosition();
+    void getPosition(std::vector<double> &pos_vector);
     float getBaroDepth();
     float getTemperature();
 
@@ -36,9 +39,5 @@ public:
     double CalculateDeviation();
     std::vector<float> findPositionWithBaro();
 
-
-
-
-  
 
 };
