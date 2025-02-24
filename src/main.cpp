@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include <iostream>
+
 #include "SPS.h"
 #include "gui.h"
 
@@ -8,6 +9,23 @@ GuiContainer GuiC;
 SPS sps;
 
 int main() {
+
+    //Test SPS system
+    std::vector<double> Avector = {15600,18760, 17610, 19170};
+    std::vector<double> Bvector = {7540, 2750, 14630, 610};
+    std::vector<double> Cvector = {20140, 18610, 13480, 18390};
+    std::vector<double> Tvector = {0.07074,0.07220,0.07690,0.07242};
+    std::vector<double> Guess = {0,0,6370,0};
+    int lenghtA = 4;
+    double c = 299792.458;
+
+
+
+    sps.newtonEstimatePosition(Guess,Avector,Bvector,Cvector,Tvector,lenghtA,c);
+
+
+    /*
+
     if (!glfwInit()) return -1;
 
     // Set the OpenGL version and context
@@ -70,6 +88,7 @@ int main() {
     ImGui::DestroyContext();  // Don't forget to destroy the ImGui context!
     glfwDestroyWindow(window);
     glfwTerminate();
+    */
     return 0;
 }
 
