@@ -5,27 +5,34 @@
 #include "SPS.h"
 #include "gui.h"
 
+
+//decleare positions of sensors
+std::vector<double> Avector = {15600,18760, 17610, 19170}; //Sensor X - coordinates
+std::vector<double> Bvector = {7540, 2750, 14630, 610};    //Sensor Y - coordinates
+std::vector<double> Cvector = {20140, 18610, 13480, 18390};//Sensor Z - coordinates
+int lenghtA = 4; //Number of sensors
+double c = 299792.458; //Speed of sound in medium used (Air or water)
+
+Eigen::Vector4d Guess = {0,0,6370,0}; //create initial guess
+
 GuiContainer GuiC;
-SPS sps;
+SPS sps(Avector,Bvector,Cvector,Guess,lenghtA,c);
 
 int main() {
-
+    
     //Test SPS system
-    std::vector<double> Avector = {15600,18760, 17610, 19170};
-    std::vector<double> Bvector = {7540, 2750, 14630, 610};
-    std::vector<double> Cvector = {20140, 18610, 13480, 18390};
-    std::vector<double> Tvector = {0.07074,0.07220,0.07690,0.07242};
-    std::vector<double> Guess = {0,0,6370,0};
-    int lenghtA = 4;
-    double c = 299792.458;
+    sps.makePing();
+    Eigen::Vector4d posittion;
+    posittion = sps.getData();
 
-
-
-    sps.newtonEstimatePosition(Guess,Avector,Bvector,Cvector,Tvector,lenghtA,c);
-
-
-    /*
-
+    std::cout << "estimated position with ping" << std::endl;
+    std::cout << "X: " << posittion(0) << std::endl;
+    std::cout << "Y: " << posittion(1) << std::endl;
+    std::cout << "Z: " << posittion(2) << std::endl;
+    std::cout << "t: " << posittion(3) << std::endl;
+    //GuiC.updatePositionData(sps.getData()); //Fix this function
+    
+    
     if (!glfwInit()) return -1;
 
     // Set the OpenGL version and context
@@ -61,20 +68,23 @@ int main() {
         double currentTime = glfwGetTime();
         double deltaTime = currentTime - lastTime;
 
-        //Calculation here - - - -
+        //Update position functions - - - - - - - 
+
+        sps.makePing();
+        GuiC.updatePositionData(sps.getData());
+
+        // - - - - - - - - - 
 
 
-        //- - - - - - - -- 
         updateCount++;
-        glfwPollEvents();
 
+        //Update GUI functuins
+        glfwPollEvents();
         glClear(GL_COLOR_BUFFER_BIT);  // Clear the window
 
-        // Render your GUI
+        // Render Gui
         RenderUI(GuiC);
-
         glfwSwapBuffers(window);  // Swap buffers
-
         if (deltaTime >= 1.0) {
         ups = updateCount / deltaTime;
         updateCount = 0;
@@ -88,7 +98,7 @@ int main() {
     ImGui::DestroyContext();  // Don't forget to destroy the ImGui context!
     glfwDestroyWindow(window);
     glfwTerminate();
-    */
+    
     return 0;
 }
 

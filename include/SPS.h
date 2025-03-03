@@ -18,72 +18,58 @@ private:
     double perimeterX;
     double perimeterY;
     double lightSpeed = 300;
+    std::vector<double> Avector;
+    std::vector<double> Bvector;
+    std::vector<double> Cvector;
+    std::vector<double> Tvector;
+    int lenghtA;
+    double c;
+    Eigen::Vector4d guessVector;
+    Eigen::Vector4d result;
+
 
 
 std::vector<double> xyzPosition = {0,0,0};
 float baroDepth = 0;
 float temperature = 0;
 public:
-    SPS();
+    SPS(std::vector<double> Avector,
+        std::vector<double> Bvector,
+        std::vector<double> Cvector,
+        Eigen::Vector4d Gvector,
+        int lenghtA, double c);
 
     //Retrive private data functions
     void getPosition(std::vector<double> &pos_vector);
-    float getBaroDepth();
-    float getTemperature();
+    double getBaroDepth();
+    double getTemperature();
 
     //Comunication and receiving data
     bool InitUART();
     bool makePing();
-    bool getData();
+    Eigen::Vector4d getData();
+    bool updateBaro(double &barodepth);
+
 
 
     //Calculations
-    std::vector<float> latteratePosition();
+    Eigen::Vector4d latteratePosition(Eigen::Vector4d &Gvector, std::vector<double> Tvector, double baroDepth);
     double CalculateDeviation();
-    std::vector<float> findPositionWithBaro();
+
 
     //Estimates the location of the bioscope
-    void newtonEstimatePosition(std::vector<double> Gvector,
-                                std::vector<double> Avector,
-                                std::vector<double> Bvector,
-                                std::vector<double> Cvector,
+    void newtonEstimatePosition(Eigen::Vector4d &Gvector,
                                 std::vector<double> Tvector,
-                                int lenghtA, double c);
+                                Eigen::Vector4d &Result);
 
     //Creates the function of the sonar reciever positions
-    void createFvector(std::vector<double> &Fvector,
-                        std::vector<double> Gvector,
-                        std::vector<double> Avector,
-                        std::vector<double> Bvector,
-                        std::vector<double> Cvector,
-                        std::vector<double> Tvector,
-                        int lenghtA, double c);
+    void createFvector( Eigen::VectorXd &Fvector,
+                        Eigen::Vector4d &Gvector,
+                        std::vector<double> Tvector);
 
     //Creates the jacobian of the F-vector for newtons method
-    void createDvector(std::vector<std::vector<double>> &Dvector,
-                        std::vector<double> Gvector,
-                        std::vector<double> Avector,
-                        std::vector<double> Bvector,
-                        std::vector<double> Cvector,
-                        std::vector<double> Tvector,
-                        int lenghtA, double c);
-
-    //Finds the product of inv(D) %*% -F
-    void findVvector(std::vector<double> &Vvector,
-                        std::vector<std::vector<double>> Dmatrix,
-                        std::vector<double> &Fvector,
-                        int lengthA);
-
-    void makeNewGuessVector(std::vector<double> Gvector,
-                            std::vector<double> Vvector,
-                            std::vector<double> &Guess);
-
-    //The following functions are taken from https://www.geeksforgeeks.org/adjoint-inverse-matrix/
-    void getCof(std::vector<std::vector<double>>& mat, std::vector<std::vector<double>>& cof, int p, int q, int n);
-    int getDet(std::vector<std::vector<double>>& mat, int n);
-    void adjoint(std::vector<std::vector<double>>& mat, std::vector<std::vector<double>>& adj);
-    bool inverse(std::vector<std::vector<double>>& mat, std::vector<std::vector<double>>& inv);
-    //- - - - - - - - - - -
-
+    void createDvector(Eigen::MatrixXd &Dvector,
+                        Eigen::Vector4d &Gvector,
+                        std::vector<double> Tvector);
 
 };

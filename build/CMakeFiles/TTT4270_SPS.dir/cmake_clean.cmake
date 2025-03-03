@@ -13,6 +13,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_tables.cpp.o.d"
   "CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_widgets.cpp.o"
   "CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_widgets.cpp.o.d"
+  "CMakeFiles/TTT4270_SPS.dir/src/SPS.cpp.o"
+  "CMakeFiles/TTT4270_SPS.dir/src/SPS.cpp.o.d"
   "CMakeFiles/TTT4270_SPS.dir/src/gui.cpp.o"
   "CMakeFiles/TTT4270_SPS.dir/src/gui.cpp.o.d"
   "CMakeFiles/TTT4270_SPS.dir/src/main.cpp.o"

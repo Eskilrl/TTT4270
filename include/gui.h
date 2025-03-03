@@ -3,6 +3,12 @@
 #include "string"
 #include <fstream>
 #include <iostream>
+#include <cstring>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netdb.h>
+#include <ifaddrs.h>
+#include <arpa/inet.h>
 #include "SPS.h"
 #include <GLFW/glfw3.h>
 #include "imgui.h"
@@ -28,8 +34,10 @@ private:
     int InnerWindowHeightUnit = 48;
     int InnerWindowWidthUnit = 48;
     std::vector<double> EstimatedPos = {500,500,550};
+    std::vector<double> BioscopePosition = {0,0,0,0};
     float BarometerDepth = 500;
     float Temperature = 3;
+    Eigen::Vector4d PositionVector;
 
 public:
     //All variables beein public is bad. pls fix:()
@@ -41,6 +49,8 @@ public:
     std::vector<double> getPos();
     float getBaroDepth();
     float getTemperature();
+    Eigen::Vector4d returnPositionVector();
+    bool updatePositionData(Eigen::Vector4d positionVector); //Pass by copy because we dont want to change this :)
 };
 
 
@@ -60,6 +70,7 @@ void CreateExampleUI();
 
 //System information functions
 float GetCPUTemperature();
+std::string GetIPAddress();
 
 
 
