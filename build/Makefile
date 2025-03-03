@@ -297,6 +297,30 @@ libs/imgui/imgui_widgets.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TTT4270_SPS.dir/build.make CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_widgets.cpp.s
 .PHONY : libs/imgui/imgui_widgets.cpp.s
 
+src/SPS.o: src/SPS.cpp.o
+.PHONY : src/SPS.o
+
+# target to build an object file
+src/SPS.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TTT4270_SPS.dir/build.make CMakeFiles/TTT4270_SPS.dir/src/SPS.cpp.o
+.PHONY : src/SPS.cpp.o
+
+src/SPS.i: src/SPS.cpp.i
+.PHONY : src/SPS.i
+
+# target to preprocess a source file
+src/SPS.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TTT4270_SPS.dir/build.make CMakeFiles/TTT4270_SPS.dir/src/SPS.cpp.i
+.PHONY : src/SPS.cpp.i
+
+src/SPS.s: src/SPS.cpp.s
+.PHONY : src/SPS.s
+
+# target to generate assembly for a file
+src/SPS.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TTT4270_SPS.dir/build.make CMakeFiles/TTT4270_SPS.dir/src/SPS.cpp.s
+.PHONY : src/SPS.cpp.s
+
 src/gui.o: src/gui.cpp.o
 .PHONY : src/gui.o
 
@@ -375,6 +399,9 @@ help:
 	@echo "... libs/imgui/imgui_widgets.o"
 	@echo "... libs/imgui/imgui_widgets.i"
 	@echo "... libs/imgui/imgui_widgets.s"
+	@echo "... src/SPS.o"
+	@echo "... src/SPS.i"
+	@echo "... src/SPS.s"
 	@echo "... src/gui.o"
 	@echo "... src/gui.i"
 	@echo "... src/gui.s"

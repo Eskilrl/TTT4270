@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui -I/home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/backends -I/home/eskilrl/Documents/NTNU/TTT4270/include
 
-CXX_FLAGS = 
+CXX_FLAGS = -g -Wall -Wextra -O0
 

@@ -97,10 +97,24 @@ CMakeFiles/TTT4270_SPS.dir/src/gui.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/TTT4270_SPS.dir/src/gui.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/eskilrl/Documents/NTNU/TTT4270/src/gui.cpp -o CMakeFiles/TTT4270_SPS.dir/src/gui.cpp.s
 
+CMakeFiles/TTT4270_SPS.dir/src/SPS.cpp.o: CMakeFiles/TTT4270_SPS.dir/flags.make
+CMakeFiles/TTT4270_SPS.dir/src/SPS.cpp.o: ../src/SPS.cpp
+CMakeFiles/TTT4270_SPS.dir/src/SPS.cpp.o: CMakeFiles/TTT4270_SPS.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eskilrl/Documents/NTNU/TTT4270/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/TTT4270_SPS.dir/src/SPS.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TTT4270_SPS.dir/src/SPS.cpp.o -MF CMakeFiles/TTT4270_SPS.dir/src/SPS.cpp.o.d -o CMakeFiles/TTT4270_SPS.dir/src/SPS.cpp.o -c /home/eskilrl/Documents/NTNU/TTT4270/src/SPS.cpp
+
+CMakeFiles/TTT4270_SPS.dir/src/SPS.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/TTT4270_SPS.dir/src/SPS.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/eskilrl/Documents/NTNU/TTT4270/src/SPS.cpp > CMakeFiles/TTT4270_SPS.dir/src/SPS.cpp.i
+
+CMakeFiles/TTT4270_SPS.dir/src/SPS.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/TTT4270_SPS.dir/src/SPS.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/eskilrl/Documents/NTNU/TTT4270/src/SPS.cpp -o CMakeFiles/TTT4270_SPS.dir/src/SPS.cpp.s
+
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui.cpp.o: CMakeFiles/TTT4270_SPS.dir/flags.make
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui.cpp.o: ../libs/imgui/imgui.cpp
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui.cpp.o: CMakeFiles/TTT4270_SPS.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eskilrl/Documents/NTNU/TTT4270/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eskilrl/Documents/NTNU/TTT4270/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui.cpp.o -MF CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui.cpp.o.d -o CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui.cpp.o -c /home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/imgui.cpp
 
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui.cpp.i: cmake_force
@@ -114,7 +128,7 @@ CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui.cpp.s: cmake_force
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_draw.cpp.o: CMakeFiles/TTT4270_SPS.dir/flags.make
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_draw.cpp.o: ../libs/imgui/imgui_draw.cpp
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_draw.cpp.o: CMakeFiles/TTT4270_SPS.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eskilrl/Documents/NTNU/TTT4270/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_draw.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eskilrl/Documents/NTNU/TTT4270/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_draw.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_draw.cpp.o -MF CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_draw.cpp.o.d -o CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_draw.cpp.o -c /home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/imgui_draw.cpp
 
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_draw.cpp.i: cmake_force
@@ -128,7 +142,7 @@ CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_draw.cpp.s: cmake_force
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_demo.cpp.o: CMakeFiles/TTT4270_SPS.dir/flags.make
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_demo.cpp.o: ../libs/imgui/imgui_demo.cpp
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_demo.cpp.o: CMakeFiles/TTT4270_SPS.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eskilrl/Documents/NTNU/TTT4270/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_demo.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eskilrl/Documents/NTNU/TTT4270/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_demo.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_demo.cpp.o -MF CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_demo.cpp.o.d -o CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_demo.cpp.o -c /home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/imgui_demo.cpp
 
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_demo.cpp.i: cmake_force
@@ -142,7 +156,7 @@ CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_demo.cpp.s: cmake_force
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_tables.cpp.o: CMakeFiles/TTT4270_SPS.dir/flags.make
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_tables.cpp.o: ../libs/imgui/imgui_tables.cpp
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_tables.cpp.o: CMakeFiles/TTT4270_SPS.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eskilrl/Documents/NTNU/TTT4270/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_tables.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eskilrl/Documents/NTNU/TTT4270/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_tables.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_tables.cpp.o -MF CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_tables.cpp.o.d -o CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_tables.cpp.o -c /home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/imgui_tables.cpp
 
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_tables.cpp.i: cmake_force
@@ -156,7 +170,7 @@ CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_tables.cpp.s: cmake_force
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_widgets.cpp.o: CMakeFiles/TTT4270_SPS.dir/flags.make
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_widgets.cpp.o: ../libs/imgui/imgui_widgets.cpp
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_widgets.cpp.o: CMakeFiles/TTT4270_SPS.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eskilrl/Documents/NTNU/TTT4270/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_widgets.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eskilrl/Documents/NTNU/TTT4270/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_widgets.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_widgets.cpp.o -MF CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_widgets.cpp.o.d -o CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_widgets.cpp.o -c /home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/imgui_widgets.cpp
 
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_widgets.cpp.i: cmake_force
@@ -170,7 +184,7 @@ CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_widgets.cpp.s: cmake_force
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/backends/imgui_impl_glfw.cpp.o: CMakeFiles/TTT4270_SPS.dir/flags.make
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/backends/imgui_impl_glfw.cpp.o: ../libs/imgui/backends/imgui_impl_glfw.cpp
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/backends/imgui_impl_glfw.cpp.o: CMakeFiles/TTT4270_SPS.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eskilrl/Documents/NTNU/TTT4270/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/TTT4270_SPS.dir/libs/imgui/backends/imgui_impl_glfw.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eskilrl/Documents/NTNU/TTT4270/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/TTT4270_SPS.dir/libs/imgui/backends/imgui_impl_glfw.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TTT4270_SPS.dir/libs/imgui/backends/imgui_impl_glfw.cpp.o -MF CMakeFiles/TTT4270_SPS.dir/libs/imgui/backends/imgui_impl_glfw.cpp.o.d -o CMakeFiles/TTT4270_SPS.dir/libs/imgui/backends/imgui_impl_glfw.cpp.o -c /home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/backends/imgui_impl_glfw.cpp
 
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/backends/imgui_impl_glfw.cpp.i: cmake_force
@@ -184,7 +198,7 @@ CMakeFiles/TTT4270_SPS.dir/libs/imgui/backends/imgui_impl_glfw.cpp.s: cmake_forc
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.o: CMakeFiles/TTT4270_SPS.dir/flags.make
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.o: ../libs/imgui/backends/imgui_impl_opengl3.cpp
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.o: CMakeFiles/TTT4270_SPS.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eskilrl/Documents/NTNU/TTT4270/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/TTT4270_SPS.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eskilrl/Documents/NTNU/TTT4270/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/TTT4270_SPS.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TTT4270_SPS.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.o -MF CMakeFiles/TTT4270_SPS.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.o.d -o CMakeFiles/TTT4270_SPS.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.o -c /home/eskilrl/Documents/NTNU/TTT4270/libs/imgui/backends/imgui_impl_opengl3.cpp
 
 CMakeFiles/TTT4270_SPS.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.i: cmake_force
@@ -199,6 +213,7 @@ CMakeFiles/TTT4270_SPS.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.s: cmake_f
 TTT4270_SPS_OBJECTS = \
 "CMakeFiles/TTT4270_SPS.dir/src/main.cpp.o" \
 "CMakeFiles/TTT4270_SPS.dir/src/gui.cpp.o" \
+"CMakeFiles/TTT4270_SPS.dir/src/SPS.cpp.o" \
 "CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui.cpp.o" \
 "CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_draw.cpp.o" \
 "CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_demo.cpp.o" \
@@ -212,6 +227,7 @@ TTT4270_SPS_EXTERNAL_OBJECTS =
 
 TTT4270_SPS: CMakeFiles/TTT4270_SPS.dir/src/main.cpp.o
 TTT4270_SPS: CMakeFiles/TTT4270_SPS.dir/src/gui.cpp.o
+TTT4270_SPS: CMakeFiles/TTT4270_SPS.dir/src/SPS.cpp.o
 TTT4270_SPS: CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui.cpp.o
 TTT4270_SPS: CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_draw.cpp.o
 TTT4270_SPS: CMakeFiles/TTT4270_SPS.dir/libs/imgui/imgui_demo.cpp.o
@@ -222,7 +238,7 @@ TTT4270_SPS: CMakeFiles/TTT4270_SPS.dir/libs/imgui/backends/imgui_impl_opengl3.c
 TTT4270_SPS: CMakeFiles/TTT4270_SPS.dir/build.make
 TTT4270_SPS: /usr/lib/x86_64-linux-gnu/libglfw.so.3.3
 TTT4270_SPS: CMakeFiles/TTT4270_SPS.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/eskilrl/Documents/NTNU/TTT4270/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable TTT4270_SPS"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/eskilrl/Documents/NTNU/TTT4270/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable TTT4270_SPS"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/TTT4270_SPS.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

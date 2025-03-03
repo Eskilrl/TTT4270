@@ -1,0 +1,3 @@
+/home/eskilrl/Documents/NTNU/TTT4270/debug/CMakeFiles/TTT4270_SPS.dir
+/home/eskilrl/Documents/NTNU/TTT4270/debug/CMakeFiles/edit_cache.dir
+/home/eskilrl/Documents/NTNU/TTT4270/debug/CMakeFiles/rebuild_cache.dir

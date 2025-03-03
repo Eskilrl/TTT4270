@@ -26,7 +26,7 @@ int GuiContainer::getWidth(){
 }
 
 std::vector<double> GuiContainer::getPos(){
-    return EstimatedPos;
+    return BioscopePosition;
 }
 
 float GuiContainer::getBaroDepth(){
@@ -35,6 +35,19 @@ float GuiContainer::getBaroDepth(){
 
 float GuiContainer::getTemperature(){
     return Temperature;
+}
+
+Eigen::Vector4d GuiContainer::returnPositionVector(){
+    return PositionVector;
+}
+
+
+
+bool GuiContainer::updatePositionData(Eigen::Vector4d positionVector){
+    for(int i = 0; i < BioscopePosition.size(); i++){
+        BioscopePosition.at(i) = positionVector(i);
+    }
+    return true;
 }
 
 /*
@@ -202,7 +215,17 @@ void CreatePosition2D(GuiContainer &GC){
 void CreateErrors(GuiContainer &GC){
     ImGui::SetNextWindowPos(ImVec2(GC.getWidth()*24, GC.getHeight()*1)); 
     ImGui::SetNextWindowSize(ImVec2(GC.getWidth()*12, GC.getHeight()*5));
-    ImGui::Begin("Errors");
+    ImGui::Begin("Bioscope metrics");
+    ImGui::Text("Current position:");
+    std::vector<double> tempPosVec = GC.getPos();
+    float x = (float) tempPosVec.at(0);
+    float y = (float) tempPosVec.at(1);
+    float z = (float) tempPosVec.at(2);
+    ImGui::Text("X: %.6f",x);
+    ImGui::Text("Y: %.6f",y);
+    ImGui::Text("Z: %.6f",z);
+    //ImGui::Text("delta t: %d",GC.getPos().at(3));
+
     ImGui::Text("Sonar to barometer deviation: %d", 0);
 
 
@@ -250,7 +273,6 @@ void CreateGeneralMetrics(GuiContainer &GC){
 
 
     ImGui::End();
-
 }
 
 
@@ -264,4 +286,26 @@ float GetCPUTemperature() {
         temp /= 1000.0f; // Convert millidegrees to Celsius
     }
     return temp;
+}
+std::string GetIPAddress() {
+    struct ifaddrs *ifap, *ifa;
+    struct sockaddr_in *sa;
+    char *addr;
+
+    std::string ipAddress = "Not Found";
+
+    if (getifaddrs(&ifap) == 0) {
+        for (ifa = ifap; ifa; ifa = ifa->ifa_next) {
+            if (ifa->ifa_addr && ifa->ifa_addr->sa_family == AF_INET) { // IPv4
+                sa = (struct sockaddr_in *) ifa->ifa_addr;
+                addr = inet_ntoa(sa->sin_addr);
+                if (std::string(ifa->ifa_name) == "eth0" || std::string(ifa->ifa_name) == "wlan0") {
+                    ipAddress = addr;
+                    break;
+                }
+            }
+        }
+        freeifaddrs(ifap);
+    }
+    return ipAddress;
 }
