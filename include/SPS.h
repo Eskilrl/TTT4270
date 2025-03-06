@@ -5,6 +5,7 @@
 #include "cmath" 
 #include <iostream>
 #include <Eigen/Dense>
+#include <chrono>
 
 /*
  This is the header file for the SPS system
@@ -26,6 +27,7 @@ private:
     double c;
     Eigen::Vector4d guessVector;
     Eigen::Vector4d result;
+    int calcTime = 0;
 
 
 
@@ -43,6 +45,7 @@ public:
     void getPosition(std::vector<double> &pos_vector);
     double getBaroDepth();
     double getTemperature();
+    int getCalcTime();
 
     //Comunication and receiving data
     bool InitUART();
@@ -73,3 +76,8 @@ public:
                         std::vector<double> Tvector);
 
 };
+
+
+//Non class functions
+
+long long getCurrentTimeMillis();

@@ -41,6 +41,15 @@ Eigen::Vector4d GuiContainer::returnPositionVector(){
     return PositionVector;
 }
 
+bool GuiContainer::updateMetrics(int time){
+    calcTime = time;
+    std::cout << calcTime << std::endl;
+}
+
+int GuiContainer::getMetrics(){
+    return calcTime;
+}
+
 
 
 bool GuiContainer::updatePositionData(Eigen::Vector4d positionVector){
@@ -225,8 +234,9 @@ void CreateErrors(GuiContainer &GC){
     ImGui::Text("Y: %.6f",y);
     ImGui::Text("Z: %.6f",z);
     //ImGui::Text("delta t: %d",GC.getPos().at(3));
-
+    ImGui::Text("Calculation time[ms] : %d", GC.getMetrics());
     ImGui::Text("Sonar to barometer deviation: %d", 0);
+    
 
 
 

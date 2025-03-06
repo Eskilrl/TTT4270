@@ -38,6 +38,10 @@ double SPS::getTemperature(){
     return temperature;
 }
 
+int SPS::getCalcTime(){
+    std::cout << calcTime << std::endl;
+    return calcTime;
+}
 
 //Communication functions
 
@@ -95,8 +99,6 @@ bool SPS::makePing(){
     double z_noise = ((rand() % 101) - 50) / 10000000.0;
     double t_noise = ((rand() % 101) - 50) / 10000000.0;
 
-    std::cout << "Vector size: " << Tvector.size() << std::endl;
-
     Tvector.at(0) += x_noise;
     Tvector.at(1) += y_noise;
     Tvector.at(2) += z_noise;
@@ -127,8 +129,9 @@ bool SPS::updateBaro(double &barodepth){
 
 Eigen::Vector4d SPS::latteratePosition(Eigen::Vector4d &Gvector, std::vector<double> Tvector, double baroDepth){
     Eigen::Vector4d NewtonResult;
+    long long starttime =  getCurrentTimeMillis();
     newtonEstimatePosition(Gvector,Tvector,NewtonResult);
-
+    calcTime = getCurrentTimeMillis() - starttime;
     return NewtonResult;
 }
 
@@ -257,4 +260,11 @@ Dvector = tempDvector;
 
 
 // --- - - - - - - -- - - - - - - - - - - -
+
+
+long long getCurrentTimeMillis() {
+    return std::chrono::duration_cast<std::chrono::milliseconds>(
+        std::chrono::system_clock::now().time_since_epoch()
+    ).count();
+}
 

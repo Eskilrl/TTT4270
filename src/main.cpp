@@ -7,7 +7,7 @@
 #include "SPS.h"
 #include "gui.h"
 
-#include <wiringPi.h>
+//#include <wiringPi.h>
     
 
 //decleare positions of sensors
@@ -30,9 +30,9 @@ int main() {
     // - - - - - - - -
 
     
-    wiringPiSetup();			// Setup the library
-    pinMode(0, OUTPUT);		// Configure GPIO0 as an output
-    pinMode(1, INPUT);		// Configure GPIO1 as an input
+    //wiringPiSetup();			// Setup the library
+    //pinMode(0, OUTPUT);		// Configure GPIO0 as an output
+    //pinMode(1, INPUT);		// Configure GPIO1 as an input
 
 
 
@@ -97,10 +97,11 @@ int main() {
         if(GuiC.pingOnce){
             GuiC.pingOnce = false;
             ledON = !ledON;
-            digitalWrite(0,ledON);
+            //digitalWrite(0,ledON);
 
         }
         GuiC.updatePositionData(sps.getData());
+        GuiC.updateMetrics(sps.getCalcTime());
 
         // - - - - - - - - - 
 
