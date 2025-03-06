@@ -38,6 +38,7 @@ private:
     float BarometerDepth = 500;
     float Temperature = 3;
     Eigen::Vector4d PositionVector;
+    int calcTime = 0;
 
 public:
     //All variables beein public is bad. pls fix:()
@@ -53,6 +54,8 @@ public:
     float getTemperature();
     Eigen::Vector4d returnPositionVector();
     bool updatePositionData(Eigen::Vector4d positionVector); //Pass by copy because we dont want to change this :)
+    bool updateMetrics(int time);
+    int getMetrics();
 };
 
 
