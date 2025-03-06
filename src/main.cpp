@@ -1,10 +1,14 @@
 #include <stdio.h>
-
 #include <iostream>
+//#include <csignal>
+//#include <sys/time.h>
+
 
 #include "SPS.h"
 #include "gui.h"
 
+#include <wiringPi.h>
+    
 
 //decleare positions of sensors
 std::vector<double> Avector = {15600,18760, 17610, 19170}; //Sensor X - coordinates
@@ -12,6 +16,7 @@ std::vector<double> Bvector = {7540, 2750, 14630, 610};    //Sensor Y - coordina
 std::vector<double> Cvector = {20140, 18610, 13480, 18390};//Sensor Z - coordinates
 int lenghtA = 4; //Number of sensors
 double c = 299792.458; //Speed of sound in medium used (Air or water)
+bool ledON = false;
 
 Eigen::Vector4d Guess = {0,0,6370,0}; //create initial guess
 
@@ -19,7 +24,22 @@ GuiContainer GuiC;
 SPS sps(Avector,Bvector,Cvector,Guess,lenghtA,c);
 
 int main() {
+
+    //Setup RPI GPIO
+
+    // - - - - - - - -
+
     
+    wiringPiSetup();			// Setup the library
+    pinMode(0, OUTPUT);		// Configure GPIO0 as an output
+    pinMode(1, INPUT);		// Configure GPIO1 as an input
+
+
+
+
+    // - - - - - - - - 
+
+
     //Test SPS system
     sps.makePing();
     Eigen::Vector4d posittion;
@@ -69,14 +89,21 @@ int main() {
         double deltaTime = currentTime - lastTime;
 
         //Update position functions - - - - - - - 
+        if(GuiC.autoPing){
+            if(sps.makePing()){
+                updateCount++;
+            }
+        }
+        if(GuiC.pingOnce){
+            GuiC.pingOnce = false;
+            ledON = !ledON;
+            digitalWrite(0,ledON);
 
-        sps.makePing();
+        }
         GuiC.updatePositionData(sps.getData());
 
         // - - - - - - - - - 
 
-
-        updateCount++;
 
         //Update GUI functuins
         glfwPollEvents();
@@ -102,3 +129,24 @@ int main() {
     return 0;
 }
 
+
+/*
+
+void setupcallback(){
+    struct sigaction sa;
+    struct itimerval timer;
+
+    sa.sa_handler = callbackFunction;
+    sa.sa_flags = 0;
+    sigemptyset(&sa.sa_mask);
+    sigaction(SIGALRM, &sa, NULL);
+
+    timer.it_value.tv_sec = 0;
+    timer.it_value.tv_usec = 100000;  // First trigger after 100ms
+    timer.it_interval.tv_sec = 0;
+    timer.it_interval.tv_usec = 100000; // Repeat every 100ms
+
+    setitimer(ITIMER_REAL, &timer, NULL);
+}
+
+*/
