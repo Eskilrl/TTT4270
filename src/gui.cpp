@@ -242,6 +242,12 @@ void CreateControllParameters(GuiContainer &GC){
     ImGui::SliderFloat("Sonar/IMU bias %d", &GC.f, 0.0f, 1.0f);
     ImGui::Button("Set default bias", ImVec2(GC.getWidth()*5,GC.getHeight()));
     //ImGui::InputText("Set diameter [m]: ", GC.DiameterBuf, IM_ARRAYSIZE(GC.DiameterBuf));
+    if(ImGui::Button(("Auto ping: " + std::string(GC.autoPing? "true" : "false")).c_str(), ImVec2(GC.getWidth()*5,GC.getHeight()))){
+        GC.autoPing = !GC.autoPing;
+    }
+    if(ImGui::Button("Manual ping",ImVec2(GC.getWidth()*5,GC.getHeight()))){
+        GC.pingOnce = true;
+    }
 
 
     ImGui::End();
