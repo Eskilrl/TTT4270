@@ -42,6 +42,8 @@ private:
 public:
     //All variables beein public is bad. pls fix:()
     float f;
+    bool autoPing = false;
+    bool pingOnce = false;
     //std::string DiameterBuf = "5";
     //bool getNewData(SPS &data);
     int getHeight();
