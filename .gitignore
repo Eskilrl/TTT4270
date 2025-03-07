@@ -1,3 +1,4 @@
-libs/
-build/
+libs*
+build*
 CMakeList.txt
+.vscode/
