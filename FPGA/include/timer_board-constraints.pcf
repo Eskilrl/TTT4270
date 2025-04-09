@@ -1,0 +1,14 @@
+set_io clk 15
+set_io reset_n 53
+
+set_io trigg 52
+set_io signalSendt 51
+set_io sw 54
+
+set_io o_Tx 64
+set_io tx_led 57
+set_io reset_led 56
+set_io trigg_led 59
+set_io signal_led 60
+
+set_io pmod 65
