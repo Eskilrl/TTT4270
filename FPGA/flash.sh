@@ -1,0 +1,1 @@
+iceprog bin/timer.bin
