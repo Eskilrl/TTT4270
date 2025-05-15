@@ -10,8 +10,8 @@ set_property IOSTANDARD LVCMOS33 [get_ports clk]
 create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports clk]
 	
 # Switches
- set_property PACKAGE_PIN V17 [get_ports sw]					
- 	set_property IOSTANDARD LVCMOS33 [get_ports sw]
+# set_property PACKAGE_PIN V17 [get_ports sw]					
+# 	set_property IOSTANDARD LVCMOS33 [get_ports sw]
  #set_property PACKAGE_PIN V16 [get_ports reset_n]					
  #	set_property IOSTANDARD LVCMOS33 [get_ports reset_n]
 #set_property PACKAGE_PIN W16 [get_ports {sw[2]}]					
@@ -49,10 +49,10 @@ set_property PACKAGE_PIN U16 [get_ports tx_led]
 	set_property IOSTANDARD LVCMOS33 [get_ports tx_led]
 set_property PACKAGE_PIN E19 [get_ports reset_led]					
 	set_property IOSTANDARD LVCMOS33 [get_ports reset_led]
-set_property PACKAGE_PIN U19 [get_ports trigg_led]					
-	set_property IOSTANDARD LVCMOS33 [get_ports trigg_led]
-set_property PACKAGE_PIN V19 [get_ports signal_led]					
-	set_property IOSTANDARD LVCMOS33 [get_ports signal_led]
+#set_property PACKAGE_PIN U19 [get_ports trigg_led]					
+#	set_property IOSTANDARD LVCMOS33 [get_ports trigg_led]
+#set_property PACKAGE_PIN V19 [get_ports signal_led]					
+#	set_property IOSTANDARD LVCMOS33 [get_ports signal_led]
 #set_property PACKAGE_PIN W18 [get_ports {LED[4]}]					
 #	set_property IOSTANDARD LVCMOS33 [get_ports {LED[4]}]
 #set_property PACKAGE_PIN U15 [get_ports {LED[5]}]					
@@ -109,12 +109,12 @@ set_property PACKAGE_PIN V19 [get_ports signal_led]
 
 
 ##Buttons
-set_property PACKAGE_PIN U18 [get_ports trigg]						
-	set_property IOSTANDARD LVCMOS33 [get_ports trigg]
+#set_property PACKAGE_PIN U18 [get_ports trigg]						
+#	set_property IOSTANDARD LVCMOS33 [get_ports trigg]
 #set_property PACKAGE_PIN T18 [get_ports btnU]						
 	#set_property IOSTANDARD LVCMOS33 [get_ports btnU]
-set_property PACKAGE_PIN W19 [get_ports signalSendt]						
-	set_property IOSTANDARD LVCMOS33 [get_ports signalSendt]
+#set_property PACKAGE_PIN W19 [get_ports signalSendt]						
+#	set_property IOSTANDARD LVCMOS33 [get_ports signalSendt]
 set_property PACKAGE_PIN T17 [get_ports reset_n]						
 	set_property IOSTANDARD LVCMOS33 [get_ports reset_n]
 #set_property PACKAGE_PIN U17 [get_ports btnD]						
@@ -124,20 +124,20 @@ set_property PACKAGE_PIN T17 [get_ports reset_n]
 
 ##Pmod Header JA
 #Sch name = JA1
-#set_property PACKAGE_PIN J1 [get_ports trigg]					
-#	set_property IOSTANDARD LVCMOS33 [get_ports trigg]
+set_property PACKAGE_PIN J1 [get_ports trigg_1]					
+	set_property IOSTANDARD LVCMOS33 [get_ports trigg_1]
 #Sch name = JA2
-#set_property PACKAGE_PIN L2 [get_ports signalSendt]					
-#	set_property IOSTANDARD LVCMOS33 [get_ports signalSendt]
+set_property PACKAGE_PIN L2 [get_ports trigg_2]					
+	set_property IOSTANDARD LVCMOS33 [get_ports trigg_2]
 #Sch name = JA3
-set_property PACKAGE_PIN J2 [get_ports o_Tx]					
-	set_property IOSTANDARD LVCMOS33 [get_ports o_Tx]
+set_property PACKAGE_PIN J2 [get_ports trigg_3]					
+	set_property IOSTANDARD LVCMOS33 [get_ports trigg_3]
 #Sch name = JA4
-set_property PACKAGE_PIN G2 [get_ports pmod]					
-	set_property IOSTANDARD LVCMOS33 [get_ports pmod]
+set_property PACKAGE_PIN G2 [get_ports trigg_4]					
+	set_property IOSTANDARD LVCMOS33 [get_ports trigg_4]
 ##Sch name = JA7
-set_property PACKAGE_PIN H1 [get_ports pmod]					
-	set_property IOSTANDARD LVCMOS33 [get_ports pmod]
+set_property PACKAGE_PIN H1 [get_ports o_Tx]					
+	set_property IOSTANDARD LVCMOS33 [get_ports o_Tx]
 ##Sch name = JA8
 #set_property PACKAGE_PIN K2 [get_ports {JA[5]}]					
 	#set_property IOSTANDARD LVCMOS33 [get_ports {JA[5]}]
@@ -145,8 +145,8 @@ set_property PACKAGE_PIN H1 [get_ports pmod]
 #set_property PACKAGE_PIN H2 [get_ports {JA[6]}]					
 	#set_property IOSTANDARD LVCMOS33 [get_ports {JA[6]}]
 ##Sch name = JA10
-#set_property PACKAGE_PIN G3 [get_ports {JA[7]}]					
-	#set_property IOSTANDARD LVCMOS33 [get_ports {JA[7]}]
+set_property PACKAGE_PIN G3 [get_ports signalSendt]					
+	set_property IOSTANDARD LVCMOS33 [get_ports signalSendt]
 
 
 

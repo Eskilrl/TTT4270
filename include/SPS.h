@@ -13,6 +13,9 @@
  * 
  */
 
+static double timeBias = 0.027;
+extern double hitrate;
+extern int hitRateLength;
 
 class SPS{
 private:
@@ -48,8 +51,7 @@ public:
     int getCalcTime();
 
     //Comunication and receiving data
-    bool InitUART();
-    bool makePing();
+    bool makePing(std::vector<double> &tVec);
     Eigen::Vector4d getData();
     bool updateBaro(double &barodepth);
 
@@ -57,8 +59,6 @@ public:
 
     //Calculations
     Eigen::Vector4d latteratePosition(Eigen::Vector4d &Gvector, std::vector<double> Tvector, double baroDepth);
-    double CalculateDeviation();
-
 
     //Estimates the location of the bioscope
     void newtonEstimatePosition(Eigen::Vector4d &Gvector,
@@ -80,4 +80,4 @@ public:
 
 //Non class functions
 
-long long getCurrentTimeMillis();
+long long getCurrentTimeMicros();

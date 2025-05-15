@@ -2,7 +2,7 @@
     //Data Inputs
     input valid,
     input clk,
-    input [135:0] dataInn,
+    input [8*20-1:0] dataInn,
     input reset_n,
 
     //Data outputs
@@ -22,7 +22,7 @@
 //Init controll registers
 
 reg[7:0] byteCounter = 0;
-reg[135:0] r_dataFrame = 0;
+reg[8*20-1:0] r_dataFrame = 0;
 
 localparam B_IDLE = 1'b0;
 localparam B_WRITE = 1'b1;

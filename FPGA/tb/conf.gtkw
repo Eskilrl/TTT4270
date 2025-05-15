@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Tue Apr  8 10:44:56 2025
+[*] Thu Apr 10 09:56:13 2025
 [*]
 [dumpfile] "/home/eskilrl/Documents/NTNU/TTT4270/FPGA/waveform.vcd"
-[dumpfile_mtime] "Tue Apr  8 10:42:39 2025"
-[dumpfile_size] 1594048
+[dumpfile_mtime] "Thu Apr 10 09:55:13 2025"
+[dumpfile_size] 22132312
 [savefile] "/home/eskilrl/Documents/NTNU/TTT4270/FPGA/tb/conf.gtkw"
-[timestart] 24140000
+[timestart] 4718000
 [size] 3072 1792
 [pos] -1 -1
-*-23.000000 47960000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-18.000000 5365000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top_tb.
 [treeopen] top_tb.uut.
 [sst_width] 388
@@ -24,13 +24,14 @@ top_tb.clk
 top_tb.reset_led
 top_tb.reset_n
 top_tb.signalSendt
-top_tb.signal_led
-top_tb.trigg
-top_tb.trigg_led
 @22
 top_tb.uut.count_1.r_Counter[31:0]
 @28
 top_tb.TX
+top_tb.trigg_1
+top_tb.trigg_2
+top_tb.trigg_3
+top_tb.trigg_4
 @200
 -
 -Counter
@@ -53,6 +54,12 @@ top_tb.uut.count_1.DataOut[31:0]
 top_tb.uut.count_1.nextState[2:0]
 [color] 2
 top_tb.uut.count_1.mainState[2:0]
+top_tb.uut.count_1.reset_n
+@22
+top_tb.uut.count_1.r_delay_counter[7:0]
+@23
+[color] 2
+top_tb.uut.count_1.r_Counter[31:0]
 @200
 -Comb
 @22
@@ -61,10 +68,6 @@ top_tb.uut.comb.dataInn_1[31:0]
 @28
 [color] 3
 top_tb.uut.comb.valid_1
-@22
-[color] 3
-top_tb.uut.comb.dataOut[135:0]
-@28
 [color] 3
 top_tb.uut.comb.valid
 @200
@@ -75,15 +78,13 @@ top_tb.uut.buffer.TX_Byte[7:0]
 @28
 [color] 5
 top_tb.uut.buffer.TX_DV
-@22
-[color] 5
-top_tb.uut.buffer.dataInn[135:0]
-@28
 [color] 5
 top_tb.uut.buffer.mainState
 @22
 [color] 5
 top_tb.uut.buffer.byteCounter[7:0]
+[color] 5
+top_tb.uut.buffer.r_dataFrame[159:0]
 @200
 -UART
 @22

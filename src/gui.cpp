@@ -9,6 +9,22 @@ double lastTime = glfwGetTime();
 int updateCount = 0;
 double ups = 0;
 
+const char* statusStr[] = {
+    "NoData",
+    "MsgRecievedOK",
+    "NumByteError",
+    "CheckSumError",
+    "EOF_Error"
+};
+
+extern const char* systemStr[] = {
+    "Offline",
+    "Online",
+    "ErrorDetected: Timed Out",
+    "ErrorDetected: Frame Error",
+    "Reset Triggered!"
+};
+
 
 
 static float OceantempHistory[100] = {0};  // Store the last 100 values
@@ -37,13 +53,24 @@ float GuiContainer::getTemperature(){
     return Temperature;
 }
 
+std::vector <double> GuiContainer::returnTimeVector(){
+    return timeVector;
+}
+
 Eigen::Vector4d GuiContainer::returnPositionVector(){
     return PositionVector;
 }
 
-bool GuiContainer::updateMetrics(int time){
+bool GuiContainer::updateMetrics(int time, std::vector<double> &tvec, SystemStatus &stmSt, programStatus &pgms,
+    long long lastUpdTime, long long restartstrTime){
     calcTime = time;
-    std::cout << calcTime << std::endl;
+    timeVector = tvec;
+    guiProgramStatus = pgms;
+    systemSts.comstat.store(stmSt.comstat.load());
+    internalLastUpdateTime = lastUpdTime;
+    internalRestartTime = restartstrTime;
+    //systemSts = stmSt;
+    return true;
 }
 
 int GuiContainer::getMetrics(){
@@ -58,14 +85,6 @@ bool GuiContainer::updatePositionData(Eigen::Vector4d positionVector){
     }
     return true;
 }
-
-/*
-bool GuiContainer::getNewData(SPS &data){
-    std::vector<double> EstimatedPos(3);
-    data.getPosition(EstimatedPos);
-    return true;
-}
-*/
 
 
 //Define functions - - - - - - - - - - - - - - - - 
@@ -95,8 +114,6 @@ void RenderUI(GuiContainer &GuiC) {
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    //draw_list->AddTriangleFilled(ImVec2(50, 100), ImVec2(100, 50), ImVec2(150, 100), ImColor(255, 0, 0));
-    //CreateExampleUI();
     //Call sub window modules
     CreateTrueDepthUI(GuiC);
     CreatePosition2D(GuiC);
@@ -147,7 +164,7 @@ void CreateTrueDepthUI(GuiContainer &GC){
     
     ImGui::SetNextWindowPos(ImVec2(GC.getWidth() *17, GC.getHeight()*1)); 
     ImGui::SetNextWindowSize(ImVec2(GC.getWidth()*6, GC.getHeight()*20));
-    ImGui::Begin("Baro Depth[M]");
+    ImGui::Begin("Baro Depth");
     ImDrawList* draw_list = ImGui::GetWindowDrawList();
 
     // Define start and end points
@@ -168,12 +185,12 @@ void CreateTrueDepthUI(GuiContainer &GC){
     draw_list->AddLine(p3, p4, color, thickness);
 
     color = IM_COL32(255, 0, 0, 255); // Red color
-
-    ImVec2 circleCenter = ImVec2(GC.getWidth()*20, GC.getBaroDepth());
+    float height = GC.getHeight()*13;
+    ImVec2 circleCenter = ImVec2(GC.getWidth()*20,  (-(GC.getPos().at(2))/tankDepth/2)*height+GC.getWidth()*2);
     float circleRaduis = GC.getHeight()/4;
     draw_list->AddCircle(circleCenter,circleRaduis,color,30,3.0f);
 
-    ImVec2 TextPoint = ImVec2(circleCenter.x+20,circleCenter.y);
+    ImVec2 TextPoint = ImVec2(circleCenter.x+20,(-(GC.getPos().at(2))/tankDepth/2)*height+GC.getWidth()*2);
     ImGui::SetCursorPos(TextPoint);
     ImGui::Text("Z: %d", (int) GC.getBaroDepth());
 
@@ -188,7 +205,7 @@ void CreatePosition2D(GuiContainer &GC){
     ImDrawList* draw_list = ImGui::GetWindowDrawList();
     
     float width = GC.getWidth()*13;
-    float height = GC.getHeight()*23;
+    float height = GC.getHeight()*13;
     ImU32 color = IM_COL32(100, 100, 255, 255); // Blueish net
     float thickness = 3.0f;
 
@@ -203,12 +220,17 @@ void CreatePosition2D(GuiContainer &GC){
   
     //Draw drone
     color = IM_COL32(255, 0, 0, 255); // Red color
-    ImVec2 DronePos = ImVec2(GC.getPos().at(0), GC.getPos().at(2));
+    ImVec2 DronePos = ImVec2(GC.getPos().at(0), -(GC.getPos().at(2)));
+
+    DronePos.x = ((DronePos.x+tankWidt/2)/tankWidt)*width+GC.getWidth()*2;
+    DronePos.y = ((DronePos.y)/tankDepth/2)*height+GC.getWidth()*2;
+    
+
     float circleRaduis = GC.getHeight()/4;
     draw_list->AddCircle(DronePos,circleRaduis,color,30,3.0f);
     ImVec2 TextPoint = ImVec2(DronePos.x,DronePos.y/6);
     ImGui::SetCursorPos(TextPoint);
-    ImGui::Text("Debth: %d", (int) DronePos.y);
+    ImGui::Text("Debth: %d", (int) GC.getPos().at(2));
 
     //Draw lines to drone vector
     color = IM_COL32(255, 100, 0, 255); // Red color
@@ -234,11 +256,42 @@ void CreateErrors(GuiContainer &GC){
     ImGui::Text("Y: %.6f",y);
     ImGui::Text("Z: %.6f",z);
     //ImGui::Text("delta t: %d",GC.getPos().at(3));
-    ImGui::Text("Calculation time[ms] : %d", GC.getMetrics());
+
+    //calculating estimation time
+    ImGui::Text("HitRate: %.2f%%", hitrate*100);
+    ImGui::Text("Std err: x: %.2fcm y: %.2fcm z: %.2fcm t: %.2fs",
+        std::sqrt(GC.var_x),
+        std::sqrt(GC.var_y),
+        std::sqrt(GC.var_z),
+        std::sqrt(GC.var_t)
+    );
+
+
+    ImGui::Text("Calculation time[us] : %d", GC.getMetrics());
+    estimationHistory[estimationIndex] = GC.getMetrics();
+    estimationIndex = (estimationIndex + 1) % 100;
+    ImGui::PlotLines("Calculation time [20-100]", estimationHistory, 100, 0, nullptr, 20.0f, 100.0f, ImVec2(0, GC.getHeight()/2));
+    float calculationAverage = 0;
+    for(int i = 0; i < 100; i++){
+        calculationAverage += estimationHistory[i];
+    }
+    calculationAverage = calculationAverage/100;
+
+    ImGui::Text("Calculation average[us] : %.2f", calculationAverage);
+
+
     ImGui::Text("Sonar to barometer deviation: %d", 0);
     
+    std::vector<double> tempTvec = GC.returnTimeVector();
 
-
+    ImGui::Text("time data: t1: %.6f t2: %.6f t3: %.6f t4: %.6f",
+    tempTvec.at(0),
+    tempTvec.at(1),
+    tempTvec.at(2),
+    tempTvec.at(3));
+    
+    ImGui::Text("MQTT status: %s",
+         statusStr[GC.systemSts.comstat]);
 
     ImGui::End();
 
@@ -249,8 +302,10 @@ void CreateControllParameters(GuiContainer &GC){
     ImGui::SetNextWindowSize(ImVec2(GC.getWidth()*12, GC.getHeight()*6));
     ImGui::Begin("Controll parameters");
 
-    ImGui::SliderFloat("Sonar/IMU bias %d", &GC.f, 0.0f, 1.0f);
-    ImGui::Button("Set default bias", ImVec2(GC.getWidth()*5,GC.getHeight()));
+    //ImGui::SliderFloat("Sonar/IMU bias %d", &GC.f, 0.0f, 1.0f);
+    if(ImGui::Button("Reset", ImVec2(GC.getWidth()*5,GC.getHeight()))){
+        GC.SysReset = true;
+    }
     //ImGui::InputText("Set diameter [m]: ", GC.DiameterBuf, IM_ARRAYSIZE(GC.DiameterBuf));
     if(ImGui::Button(("Auto ping: " + std::string(GC.autoPing? "true" : "false")).c_str(), ImVec2(GC.getWidth()*5,GC.getHeight()))){
         GC.autoPing = !GC.autoPing;
@@ -258,6 +313,24 @@ void CreateControllParameters(GuiContainer &GC){
     if(ImGui::Button("Manual ping",ImVec2(GC.getWidth()*5,GC.getHeight()))){
         GC.pingOnce = true;
     }
+
+    ImGui::Text("Set update Rate");
+    if (ImGui::Button("1/s")) {
+        GC.UpdateRate  = 1;  // Set variable to 0 when the first button is clicked
+    }
+    ImGui::SameLine();  // Keep the next button on the same line
+
+    if (ImGui::Button("10/s")) {
+        GC.UpdateRate  = 10;  // Set variable to 1 when the second button is clicked
+    }
+    ImGui::SameLine();  // Keep the next button on the same line
+
+    if (ImGui::Button("100/s")) {
+        GC.UpdateRate  = 100;  // Set variable to 2 when the third button is clicked
+    }
+
+    // You can display the current state
+    ImGui::Text("Current update Rate: %d/s", GC.UpdateRate );
 
 
     ImGui::End();
@@ -286,9 +359,57 @@ void CreateGeneralMetrics(GuiContainer &GC){
     CPUtempIndex = (CPUtempIndex + 1) % 100;
 
     ImGui::PlotLines("CPU Temp history", CPUtempHistory, 100, 0, nullptr, 20.0f, 60.0f, ImVec2(0, GC.getHeight()/2));
+    
+    std::string ipAddress = GetIPAddress();
+    ImGui::Text("IP Address: %s", ipAddress.c_str());
 
+    ImGui::Text("System status:");
+
+// Display the status with different colors
+    ImGui::SameLine();
+    bool noIP = ipAddress.empty() ; 
+
+    if (GC.guiProgramStatus == Online) {
+        ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), systemStr[GC.guiProgramStatus]); // Green for Online
+    }
+    if(noIP){
+        ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), systemStr[Offline]); // Red for Offline
+    }
+
+    if ((GC.guiProgramStatus == ErrorDetected_TimedOut) || (GC.guiProgramStatus == ErrorDetected_FrameError)){
+        ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), systemStr[GC.guiProgramStatus]); // Yellow for ErrorDetected
+
+        int restartTimer = int((GC.internalRestartTime + 8000000 - getCurrentTimeMicros())/1000000);
+
+        
+        ImGui::SameLine();
+        // Display the "restarting in X" message
+        if (restartTimer > 0) {
+            ImGui::Text(" Restarting in %d seconds", restartTimer);
+        } else {
+            ImGui::Text(" Restarting...");
+        }
+
+    }
+
+    if ((GC.guiProgramStatus == Reset_Triggered)){
+        ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), systemStr[GC.guiProgramStatus]); // Yellow for ErrorDetected
+
+        int restartTimer = int((GC.internalRestartTime + 8000000 - getCurrentTimeMicros())/1000000);
+
+        
+        ImGui::SameLine();
+        // Display the "restarting in X" message
+        if (restartTimer > 0) {
+            ImGui::Text(" Restarting in %d seconds", restartTimer);
+        } else {
+            ImGui::Text(" Restarting...");
+        }
+
+    }
 
     ImGui::End();
+    
 }
 
 
