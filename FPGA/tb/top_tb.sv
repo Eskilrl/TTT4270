@@ -4,7 +4,10 @@ module top_tb;
 
     // Testbench signals
     logic clk = 0;
-    logic trigg = 0;
+    logic trigg_1 = 1;
+    logic trigg_2 = 1;
+    logic trigg_3 = 1;
+    logic trigg_4 = 1;
     logic signalSendt = 0;
     logic reset_n = 0;
 
@@ -17,13 +20,14 @@ module top_tb;
     // Instantiate your design
     top uut (
         .clk(clk),
-        .trigg(trigg),
+        .trigg_1(trigg_1),
+        .trigg_2(trigg_2),
+        .trigg_3(trigg_3),
+        .trigg_4(trigg_4),
         .signalSendt(signalSendt),
         .reset_n(reset_n),
-        .TX(TX),
-        .reset_led(reset_led),
-        .trigg_led(trigg_led),
-        .signal_led(signal_led)
+        .o_Tx(TX),
+        .reset_led(reset_led)
     );
 
 
@@ -61,17 +65,25 @@ module top_tb;
         signalSendt = 0;
 
         // Trigger a signal
-        #5000;
-        trigg = 1;
+        #500;
+        trigg_1 = 1;
+        trigg_2 = 1;
+        trigg_3 = 1;
+        trigg_4 = 1;
         #80;
-        trigg = 0;
+        trigg_1 = 0;
+        trigg_2 = 0;
+        trigg_3 = 0;
+        trigg_4 = 0;
         #40;
-        trigg = 1;
-        #40;
-        trigg = 0;
+        trigg_1 = 1;
+        trigg_2 = 1;
+        trigg_3 = 1;
+        trigg_4 = 1;
+        
 
         // Run for a while
-        #1000000;
+        #10000000;
 
          // Simulate a "signalSendt" pulse
         #100;
@@ -85,14 +97,25 @@ module top_tb;
 
         // Trigger a signal
         #5000;
-        trigg = 1;
+        trigg_1 = 1;
+        trigg_2 = 1;
+        trigg_3 = 1;
+        trigg_4 = 1;
         #80;
-        trigg = 0;
+        trigg_1 = 0;
+        trigg_2 = 0;
+        trigg_3 = 0;
+        trigg_4 = 0;
         #40;
-        trigg = 1;
+        trigg_1 = 1;
+        trigg_2 = 1;
+        trigg_3 = 1;
+        trigg_4 = 1;
         #40;
-        trigg = 0;
-
+        trigg_1 = 0;
+        trigg_2 = 0;
+        trigg_3 = 0;
+        trigg_4 = 0;
         // Run for a while
         #1000000;
 

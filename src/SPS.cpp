@@ -5,6 +5,9 @@ This is the cpp file for estimating the position of the bioscope
 
 */
 
+double hitrate = 1;
+int hitRateLength = 100;
+
 //Constructor
 
 SPS::SPS(std::vector<double> avector,
@@ -18,6 +21,7 @@ SPS::SPS(std::vector<double> avector,
     Bvector = bvector;
     Cvector = cvector;
     lenghtA = lenghta;
+    Tvector = {0.1,0.1,0.1,0.1};
     c = c_input;
     std::cout << "SPS init" << std::endl;
 }
@@ -25,10 +29,6 @@ SPS::SPS(std::vector<double> avector,
 
 
 //Retrieve private data functions
-
-void SPS::getPosition(std::vector<double> &pos_vector){
-    
-}
 
 double SPS::getBaroDepth(){
     return baroDepth;
@@ -39,87 +39,54 @@ double SPS::getTemperature(){
 }
 
 int SPS::getCalcTime(){
-    std::cout << calcTime << std::endl;
+    
     return calcTime;
 }
 
-//Communication functions
 
-bool SPS::InitUART(){
+//Calculation functions
 
+bool SPS::makePing(std::vector<double> &tVec){
 
+    //Update baro function for when barometer works
 
-
-    return true;
-}
-
-
-
-bool SPS::makePing(){
     //updateBaro()
-    /*
-    //temp test data
+   
     double barodepth = 1;
-    std::vector<double> Tvector = {0.07074,0.07220,0.07690,0.07242}; //Time measurment from sensors
-    
-    int randomNum;
-    
-    srand(time(0));
-    randomNum = rand() % 101;
-    double x_noise = (randomNum-50)/10000;
+    if(tVec.size() == 4){
+        
+        guessVector(3) += (*std::max_element(tVec.begin(), tVec.end())) - 0.0011661808;
+        std::cout << "Estimated time bias: " << guessVector(3);
 
-    srand(time(0));
-    randomNum = rand() % 101;
-    double y_noise = (randomNum-50)/10000;
-
-    srand(time(0));
-    randomNum = rand() % 101;
-    double z_noise = (randomNum-50)/10000;
-
-    srand(time(0));
-        randomNum = rand() % 101;
-    double t_noise = (randomNum-50)/10000;
-    std::cout << Tvector.size() << std::endl;
-    Tvector.at(0) = (Tvector.at(0) + x_noise);
-    Tvector.at(1) = (Tvector.at(1) + y_noise);
-    Tvector.at(2) = (Tvector.at(2) + z_noise);
-    Tvector.at(3) = (Tvector.at(3) + t_noise);
-    */
-    // Temp test data
-    double barodepth = 1;
-    std::vector<double> Tvector = {0.07074, 0.07220, 0.07690, 0.07242}; // Time measurements from sensors
-    
-    int randomNum;
-
-    // Seed the random number generator ONCE
-    srand(time(0));
-
-    double x_noise = ((rand() % 101) - 50) / 10000000.0;
-    double y_noise = ((rand() % 101) - 50) / 10000000.0;
-    double z_noise = ((rand() % 101) - 50) / 10000000.0;
-    double t_noise = ((rand() % 101) - 50) / 10000000.0;
-
-    Tvector.at(0) += x_noise;
-    Tvector.at(1) += y_noise;
-    Tvector.at(2) += z_noise;
-    Tvector.at(3) += t_noise;
-
-    
-    result = latteratePosition(guessVector,Tvector, barodepth);
-
+        result = latteratePosition(guessVector,tVec, barodepth);
+        
+        if(result(2) < -40){
+            std::cout << "Invalid solution" << std::endl;
+            hitrate += (- hitrate) / hitRateLength;
+            return false;
+        }
+        if(result(2) > 0){
+            std::cout << "Invalid solution" << std::endl;
+            hitrate += (- hitrate) / hitRateLength;
+            return false;
+        }
+            
+    } else {
+        std::cout << "Wrong input vector" << std::endl;
+        return false;
+    }
+    hitrate += (1- hitrate) / hitRateLength;
     return true;
 }
 
 
-
+//Return estimated position
 Eigen::Vector4d SPS::getData(){
-
     return result;
 }
 
+//Update barometer data for when baro is functional
 bool SPS::updateBaro(double &barodepth){
-
-
 
 }
 
@@ -129,24 +96,17 @@ bool SPS::updateBaro(double &barodepth){
 
 Eigen::Vector4d SPS::latteratePosition(Eigen::Vector4d &Gvector, std::vector<double> Tvector, double baroDepth){
     Eigen::Vector4d NewtonResult;
-    long long starttime =  getCurrentTimeMillis();
+    long long starttime =  getCurrentTimeMicros();
     newtonEstimatePosition(Gvector,Tvector,NewtonResult);
-    calcTime = getCurrentTimeMillis() - starttime;
+    calcTime = getCurrentTimeMicros() - starttime;
+    //NewtonResult(0) += 450;
+    //NewtonResult(1) += 300;
+    //NewtonResult(2) -= 6000;
     return NewtonResult;
 }
 
 
-
-double SPS::CalculateDeviation(){
-
-
-
-
-}
-
-
 //All functions to latterate position using newtons method
-
 
 void SPS::newtonEstimatePosition(Eigen::Vector4d &Gvector,
                                 std::vector<double> Tvector,
@@ -172,7 +132,7 @@ void SPS::newtonEstimatePosition(Eigen::Vector4d &Gvector,
     double error = 1;
     int iteartions = 1;
 
-    while(iteartions < 20){
+    while(iteartions < 30){
 
         //Check that determinant != 0        
         double det = Dmatrix.determinant();
@@ -198,9 +158,7 @@ void SPS::newtonEstimatePosition(Eigen::Vector4d &Gvector,
 
 
 
-//Alternative using eigen library:
-
-
+//Creating function vector
 void SPS::createFvector(Eigen::VectorXd &Fvector,
                         Eigen::Vector4d &Gvector,
                         std::vector<double> Tvector)
@@ -232,6 +190,8 @@ void SPS::createDvector(Eigen::MatrixXd &Dvector,
                         Eigen::Vector4d &Gvector,
                         std::vector<double> Tvector)
 {
+
+
 //Creates temporary jacobian matrix
 Eigen::MatrixXd tempDvector(lenghtA,4);
  if (Avector.size() < lenghtA || Bvector.size() < lenghtA || 
@@ -242,6 +202,8 @@ Eigen::MatrixXd tempDvector(lenghtA,4);
                   << ", Tvector: " << Tvector.size() << std::endl;
         return;
     }
+
+
 //Creates each element in jacobian
 for(int i = 0; i < lenghtA; i++){
     //Indeces the jacobian matrix
@@ -254,16 +216,12 @@ for(int i = 0; i < lenghtA; i++){
 Dvector = tempDvector;
 }
 
-
-
-
-
-
 // --- - - - - - - -- - - - - - - - - - - -
 
+//Return system time in microseconds
 
-long long getCurrentTimeMillis() {
-    return std::chrono::duration_cast<std::chrono::milliseconds>(
+long long getCurrentTimeMicros() {
+    return std::chrono::duration_cast<std::chrono::microseconds>(
         std::chrono::system_clock::now().time_since_epoch()
     ).count();
 }

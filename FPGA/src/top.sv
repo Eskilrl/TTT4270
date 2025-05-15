@@ -1,27 +1,24 @@
 module top(
     //Top level inputs
     input clk,
-    input trigg,
+    input trigg_1,
+    input trigg_2,
+    input trigg_3,
+    input trigg_4,
     input signalSendt,
     input reset_n,
-    input sw,
 
     //Top level outputs
-    output pmod,
     output o_Tx,
     output tx_led,
-    output reset_led,
-    output trigg_led,
-    output signal_led
+    output reset_led
 );
 
 parameter c_CLKS_PER_BIT = 868;
 
-wire trigg_1, trigg_2, trigg_3, trigg_4;
 wire tx_led;
 logic l_Tx;
 
-assign pmod = clk;
 
 
 //Define interconnects
@@ -30,7 +27,7 @@ logic [31:0] data_1;
 logic [31:0] data_2;
 logic [31:0] data_3;
 logic [31:0] data_4;
-logic [135:0] mainDataLine;
+logic [8*20-1:0] mainDataLine;
 
 
 logic l_valid_1, l_valid_2, l_valid_3, l_valid_4;
@@ -61,7 +58,7 @@ CounterModule count_1(
 CounterModule count_2(
     //Inputs
     .signalSendt(signalSendt),
-    .trigg(trigg_1),
+    .trigg(trigg_2),
     .clk(clk),
     .reset_n(reset_n),
     .done(done),
@@ -74,7 +71,7 @@ CounterModule count_2(
 CounterModule count_3(
     //Inputs
     .signalSendt(signalSendt),
-    .trigg(trigg_1),
+    .trigg(trigg_3),
     .clk(clk),
     .reset_n(reset_n),
     .done(done),
@@ -87,7 +84,7 @@ CounterModule count_3(
 CounterModule count_4(
     //Inputs
     .signalSendt(signalSendt),
-    .trigg(trigg_1),
+    .trigg(trigg_4),
     .clk(clk),
     .reset_n(reset_n),
     .done(done),
@@ -148,16 +145,8 @@ uart_tx #(.CLKS_PER_BIT(c_CLKS_PER_BIT))uart(
     .o_Tx_Done(l_TX_done)
 );
 
-
-assign trigg_1 = trigg;
-assign trigg_2 = trigg;
-assign trigg_3 = trigg;
-assign trigg_4 = trigg;
-
 assign reset_led = reset_n;
-assign trigg_led = l_TX_active;
-assign signal_led = sw;
-assign tx_led = l_Tx;
 assign o_Tx = l_Tx;
+assign tx_led = l_Tx;
 
 endmodule

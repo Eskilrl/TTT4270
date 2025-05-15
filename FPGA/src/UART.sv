@@ -26,7 +26,7 @@ parameter s_TX_START_BIT = 5'b00010;
 parameter s_TX_DATA_BITS = 5'b00100;
 parameter s_TX_STOP_BIT  = 5'b01000;
 parameter s_CLEANUP      = 5'b10000;
- 
+
 (* FSM_ENCODING = "ONE-HOT" *) reg [4:0]    r_SM_Main     = 0;
 (* keep = "true" *)reg [15:0]    r_Clock_Count = 0;
 reg [2:0]    r_Bit_Index   = 0;
@@ -36,7 +36,7 @@ reg          r_Tx_Active   = 0;
    
 always @(posedge i_Clock)
   begin
-    if(i_reset)begin
+    if(i_reset)begin  
       r_SM_Main <= s_IDLE;
       r_Clock_Count <= 0;
     end else begin
